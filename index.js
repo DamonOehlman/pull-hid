@@ -10,42 +10,59 @@ var pull = require('pull-core');
   [Pull Streams](http://github.com/dominictarr/pull-stream) for
   [node-hid](https://github.com/node-hid/node-hid) devices.
 
-  ## Reference
-
-**/
-
-/**
-  ### open(path)
-
-  Open the target device using the path specified. The path can also be
-  provided as an array of valid vendor and product ids that can be used to
-  open the first device that matches.
-
-**/
-exports.open = function(path) {
-  // 
-};
-
-/**
-  ### read
-
-  Create a pull-stream Source and read from the target device.
+  ## Example Usage
 
   <<< examples/guitarhero.js
 
 **/
-exports.read = pull.Source(function(path) {
 
-});
+var hid = module.exports = function(target) {
+  var device = hid.open(target);
 
-/**
-  ### write
+  // create the reader
+  function read() {
+    return function(end, cb) {
+      if (end) {
+        return cb(end);
+      }
 
-  Create a pull-stream Sink and write to the target device.
+      device.read(cb);
+    };
+  }
 
-  <<< examples/bcc950.js
+  function write(read, done) {
+  }
 
-**/
-exports.write = pull.Sink(function(read, path, done) {
+  // if we were 
+  if (device instanceof Error) {
+    return;
+  }
 
-});
+  return {
+    read: pull.Source(read),
+    write: pull.Sink(write)
+  };
+}
+
+hid.open = function(target) {
+  // if we have been provided a vendor id product id pair, then look for
+  // the device
+  if (Array.isArray(target)) {
+    target = (HID.devices.apply(HID, target)[0] || {}).path;
+  }
+
+  // if we don't have a valid target, return
+  if (! target) {
+    return new Error('No target specified');
+  }
+
+  // create the device
+  try {
+    return new HID.HID(target);
+  }
+  catch (e) {
+    return e;
+  }
+
+  return new Error('No matching device found');
+}

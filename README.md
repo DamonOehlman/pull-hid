@@ -8,26 +8,23 @@
 
 ![experimental](https://img.shields.io/badge/stability-experimental-red.svg)
 
-## Reference
+## Example Usage
 
-### open(path)
+```js
+var hid = require('pull-hid');
+var pull = require('pull-stream');
 
-Open the target device using the path specified. The path can also be
-provided as an array of valid vendor and product ids that can be used to
-open the first device that matches.
+// attach to the first device that matches a guitar hero controller
+var device = [
+  [0x12ba, 0x0100] // PS3 guitar hero controller vendor, product id pair
+].map(hid).filter(Boolean)[0];
 
-### read
+if (! device) {
+  return console.log('No guitar hero controllers found');
+}
 
-Create a pull-stream Source and read from the target device.
-
-```
-ERROR: could not find: 
-```
-
-### write
-
-Create a pull-stream Sink and write to the target device.
-
-```
-ERROR: could not find: 
+pull(
+  device.read(),
+  pull.drain(console.log)
+);
 ```
