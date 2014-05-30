@@ -33,12 +33,13 @@ var hid = module.exports = function(target) {
   function write(read, done) {
   }
 
-  // if we were 
+  // if we were
   if (device instanceof Error) {
     return;
   }
 
   return {
+    hid: device,
     read: pull.Source(read),
     write: pull.Sink(write)
   };
