@@ -1,0 +1,10 @@
+ACTION!="add", GOTO="device_end"
+SUBSYSTEM=="usb_device", GOTO="device_start"
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", GOTO="device_start"
+GOTO="device_end"
+
+LABEL="device_start"
+
+ATTR{idVendor}=="2458", ATTR{idProduct}=="0001", MODE="666"
+
+LABEL="device_end"
