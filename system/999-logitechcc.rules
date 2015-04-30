@@ -7,5 +7,6 @@ LABEL="device_start"
 
 # bcc950
 ATTR{idVendor}=="046d", ATTR{idProduct}=="0838", MODE="666"
+ATTR{idVendor}=="046d", ATTR{idProduct}=="0837", MODE="666"
 
 LABEL="device_end"
