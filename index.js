@@ -2,7 +2,7 @@
 'use strict';
 
 var HID = require('node-hid');
-var pull = require('pull-core');
+var pull = require('pull-stream');
 
 /**
   # pull-hid
@@ -40,8 +40,8 @@ var hid = module.exports = function(target) {
 
   return {
     hid: device,
-    read: pull.Source(read),
-    write: pull.Sink(write)
+    read: read,
+    write: write
   };
 }
 
