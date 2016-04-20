@@ -1,6 +1,6 @@
 {
   "name": "pull-hid",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Pull streams for interfacing with HID devices",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,5 @@
     "node-hid": "^0.5.1",
     "pull-stream": "^3.3.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
