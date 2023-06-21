@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/DamonOehlman/pull-hid",
   "dependencies": {
-    "node-hid": "^0.5.1",
+    "node-hid": "^2.1.2",
     "pull-stream": "^3.3.0"
   },
   "devDependencies": {}
